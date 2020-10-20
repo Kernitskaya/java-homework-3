@@ -2,12 +2,11 @@ package ru.movies.domain;
 
 public class Movie {
     private String id;
-    private String imageUrl;
     private String name;
-    private String genre;
 
-    public Movie(String name) {
-        this.name = name;
+    public Movie(String name, String id) {
+        this.setName(name);
+        this.setId(id);
     }
 
     public String getId() {
@@ -18,27 +17,11 @@ public class Movie {
         this.id = id;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 }
