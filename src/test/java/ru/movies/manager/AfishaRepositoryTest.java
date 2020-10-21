@@ -24,7 +24,7 @@ public class AfishaRepositoryTest {
     public void testSaveAndFindAll() {
         Movie movie = new Movie("4", "4");
         repository.save(movie);
-        assertEquals(repository.findAll().size(), 4);
+        assertEquals(repository.findAll().length, 4);
     }
 
     @Test
@@ -38,18 +38,18 @@ public class AfishaRepositoryTest {
     public void testRemoveById() {
         repository.removeById("2");
         assertNull(repository.findById("2"));
-        assertEquals(repository.findAll().size(), 2);
+        assertEquals(repository.findAll().length, 2);
     }
 
     @Test
     public void testRemoveAll() {
         repository.removeAll();
-        assertEquals(repository.findAll().size(), 0);
+        assertEquals(repository.findAll().length, 0);
     }
 
     @Test
     public void testRemoveNotExist() {
         repository.removeById("10");
-        assertEquals(repository.findAll().size(), 3);
+        assertEquals(repository.findAll().length, 3);
     }
 }

@@ -1,6 +1,5 @@
 package ru.movies.manager;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -8,9 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.movies.domain.Movie;
 import ru.movies.repositories.AfishaRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
@@ -22,22 +18,15 @@ class AfishaManagerTest {
     @InjectMocks
     private AfishaManager manager;
 
-    ArrayList<Movie> movies = new ArrayList<>();
     Movie movie1 = new Movie("1", "1");
     Movie movie2 = new Movie("2", "2");
     Movie movie3 = new Movie("3", "3");
-
-    @BeforeEach
-    void setUp() {
-        movies.add(movie1);
-        movies.add(movie2);
-        movies.add(movie3);
-    }
+    Movie[] movies = new Movie[]{movie1, movie2, movie3};
 
     @Test
     public void testFindAll() {
         doReturn(movies).when(repository).findAll();
-        assertEquals(3, manager.findAll().size());
+        assertEquals(3, manager.findAll().length);
     }
 
     @Test
@@ -49,28 +38,27 @@ class AfishaManagerTest {
     @Test
     public void testRemoveAll() {
         manager.removeAll();
-        assertEquals(manager.findAll().size(), 0);
+        Movie[] expected = new Movie[0];
+        doReturn(expected).when(repository).findAll();
+        assertEquals(manager.findAll().length, 0);
     }
 
     @Test
     public void testRemoveById() {
-        ArrayList<Movie> returned = new ArrayList<>();
-        returned.add(movie1);
+        Movie[] returned = new Movie[]{movie1};
         doReturn(returned).when(repository).findAll();
         manager.removeById("2");
         manager.removeById("3");
-        List<Movie> expected = new ArrayList<>();
-        expected.add(movie1);
-        assertArrayEquals(manager.findAll().toArray(), expected.toArray());
+        Movie[] expected = new Movie[]{movie1};
+        assertArrayEquals(manager.findAll(), expected);
     }
 
     @Test
     public void testSave() {
-        ArrayList<Movie> returned = new ArrayList<>();
-        returned.add(movie1);
+        Movie[] returned = new Movie[]{movie1};
         manager.save(movie1);
         doReturn(returned).when(repository).findAll();
-        assertEquals(1, manager.findAll().size());
+        assertEquals(1, manager.findAll().length);
     }
 
 }

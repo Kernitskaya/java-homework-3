@@ -3,8 +3,6 @@ package ru.movies.manager;
 import ru.movies.domain.Movie;
 import ru.movies.repositories.AfishaRepository;
 
-import java.util.List;
-
 public class AfishaManager {
 
     AfishaRepository repository;
@@ -13,7 +11,7 @@ public class AfishaManager {
         this.repository = repository;
     }
 
-    public List<Movie> findAll() {
+    public Movie[] findAll() {
         return repository.findAll();
     }
 

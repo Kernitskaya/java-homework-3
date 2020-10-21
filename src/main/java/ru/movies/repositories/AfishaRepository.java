@@ -2,23 +2,26 @@ package ru.movies.repositories;
 
 import ru.movies.domain.Movie;
 
-import java.util.ArrayList;
-
 public class AfishaRepository {
-    private ArrayList<Movie> movies = new ArrayList<>();
+    private Movie[] movies = new Movie[0];
 
-    public ArrayList<Movie> findAll() {
+    public Movie[] findAll() {
         return movies;
     }
 
     public void save(Movie movie) {
-        movies.add(movie);
+        int length = movies.length + 1;
+        Movie[] tmp = new Movie[length];
+        System.arraycopy(movies, 0, tmp, 0, movies.length);
+        int lastIndex = tmp.length - 1;
+        tmp[lastIndex] = movie;
+        movies = tmp;
     }
 
     public Movie findById(String id) {
-        for (int i = 0; i < movies.size(); i++) {
-            if (movies.get(i).getId().equals(id)) {
-                return movies.get(i);
+        for (int i = 0; i < movies.length; i++) {
+            if (movies[i].getId().equals(id)) {
+                return movies[i];
             }
         }
         return null;
@@ -26,18 +29,27 @@ public class AfishaRepository {
 
     public void removeById(String id) {
         int index = -1;
-        for (int i = 0; i < movies.size(); i++) {
-            if (movies.get(i).getId().equals(id)) {
+        for (int i = 0; i < movies.length - 1; i++) {
+            if (movies[i].getId().equals(id)) {
                 index = i;
                 break;
             }
         }
         if (index != -1) {
-            movies.remove(index);
+            Movie[] tmp = new Movie[movies.length - 1];
+            movies[index] = null;
+            int currentIndex = 0;
+            for (int i = 0; i < movies.length; i++) {
+                if (movies[i] != null) {
+                    tmp[currentIndex] = movies[i];
+                    currentIndex++;
+                }
+            }
+            movies = tmp;
         }
     }
 
     public void removeAll() {
-        movies = new ArrayList<>();
+        movies = new Movie[0];
     }
 }
