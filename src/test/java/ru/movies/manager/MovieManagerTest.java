@@ -12,8 +12,8 @@ class MovieManagerTest {
     @Test
     void testEmptyMovies() {
         MovieManager manager = new MovieManager();
-        List<Movie> movies = manager.getMovies();
-        assertEquals(movies.size(), 0);
+        Movie[] movies = manager.getMovies();
+        assertEquals(movies.length, 0);
     }
 
     @Test
@@ -21,7 +21,7 @@ class MovieManagerTest {
         MovieManager manager = new MovieManager();
         Movie movie = new Movie("1");
         manager.addMovie(movie);
-        assertEquals(manager.getMovies().size(), 1);
+        assertEquals(manager.getMovies().length, 1);
     }
 
     @Test
@@ -31,8 +31,8 @@ class MovieManagerTest {
         Movie movie2 = new Movie("2");
         manager.addMovie(movie);
         manager.addMovie(movie2);
-        assertEquals(1, manager.getMovies().size());
-        assertEquals(manager.getMovies().get(0).getName(), "2");
+        assertEquals(1, manager.getMovies().length);
+        assertEquals(manager.getMovies()[0].getName(), "2");
     }
 
     @Test
@@ -48,8 +48,8 @@ class MovieManagerTest {
         manager.addMovie(movie3);
         manager.addMovie(movie4);
         manager.addMovie(movie5);
-        assertEquals(manager.getMovies().get(0).getName(), "5");
-        assertEquals(manager.getMovies().get(4).getName(), "1");
+        assertEquals(manager.getMovies()[0].getName(), "5");
+        assertEquals(manager.getMovies()[4].getName(), "1");
     }
 
 }
